@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
-
+import {connect} from 'react-redux';
+import {fetchPosts} from '../actions/postActions';
+//fetchPost是一个action;connect是一个方法；connect是将action和组件相互连接起来的
 class Posts extends Component {
     constructor(props){
         super(props);
@@ -9,9 +10,8 @@ class Posts extends Component {
         }
     }
     componentDidMount(){
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(res =>res.json())
-        .then(data => this.setState({posts:data}) );
+        this.props.fetchPosts();
+        
     }
   render() {
       const postItem = this.state.posts.map(post => (
@@ -31,4 +31,4 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+export default connect(null,{ fetchPosts })(Posts);
