@@ -16,6 +16,7 @@ class Posts extends Component {
     componentDidMount(){
         this.props.fetchPosts();  
     }
+    //接收数据
     componentWillReceiveProps(nextProps){
         if(nextProps.newPost){
             this.props.posts.unshift(nextProps.newPost);//这里不用push方法因为push会放到最后面。用unshift可以放到最前面
