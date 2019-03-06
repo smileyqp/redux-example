@@ -1,7 +1,8 @@
 //reducer的作用是返回一个新的状态
-import {FETCH_POSTS} from '../actions/types';
+import {FETCH_POSTS,NEW_POST} from '../actions/types';
 const initialState = {
-    items:[]
+    items:[],
+    item:{}
 }
 
 
@@ -13,6 +14,11 @@ export default function(state = initialState,action){
                 ...state,
                 items:action.payload
             }
+        case NEW_POST:
+        return {
+            ...state,
+            item:action.payload
+        }
         default:
             return state;
     }

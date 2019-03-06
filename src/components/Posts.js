@@ -14,8 +14,12 @@ class Posts extends Component {
 
     //触发action操作
     componentDidMount(){
-        this.props.fetchPosts();
-        
+        this.props.fetchPosts();  
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.newPost){
+            this.props.posts.unshift(nextProps.newPost);//这里不用push方法因为push会放到最后面。用unshift可以放到最前面
+        }
     }
   render() {
       const postItem = this.props.posts.map(post => (
@@ -36,13 +40,14 @@ class Posts extends Component {
 }
 
 //给当前的方法和状态规定具体的数据类型
-PropTypes.propTypes = {
+Posts.propTypes = {
     fetchPosts:PropTypes.func.isRequired,
     posts:PropTypes.array.isRequired
 }
 //将状态转化成属性
 const mapStateToProps = state => ({
     posts:state.posts.items,
+    newPost:state.posts.item
 })
 
 export default connect(mapStateToProps,{ fetchPosts })(Posts);

@@ -1,4 +1,4 @@
-import {FETCH_POSTS} from './types';
+import {FETCH_POSTS,NEW_POST} from './types';
 
 //分发操作的地方
 // export function fetchPosts(){
@@ -29,4 +29,22 @@ export const fetchPosts = ()=> dispatch => {
             payload:posts
             })
         );
+}
+
+//postData是传进去的参数
+export const createPost = postData => dispatch => {
+    fetch('https://jsonplaceholder.typicode.com/posts',{
+        method:'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify(postData)
+    }).then(res => res.json())//解析json；接收单个的post;之后进行转发dispatch
+    .then(post => 
+        dispatch({
+            type:NEW_POST,
+            payload:post
+            })
+        
+        )
 }
